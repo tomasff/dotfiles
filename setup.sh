@@ -1,7 +1,7 @@
 # Install packages
 sudo pacman -Syu
 
-sudo pacman -S go noto-fonts-emoji flameshot unzip alacritty zathura-pdf-mupdf zathura discord python vim ttf-jetbrains-mono ttf-font-awesome gucharmap rofi
+sudo pacman -S docker docker-compose go noto-fonts-emoji flameshot unzip alacritty zathura-pdf-mupdf zathura discord python vim ttf-jetbrains-mono ttf-font-awesome gucharmap rofi
 sudo pacman -R bmenu morc_menu dmenu
 
 # Install packages from AUR
