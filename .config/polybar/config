@@ -1,0 +1,250 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+background = #161821
+background-alt = #444
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+time = #98c1d9
+battery = #517664
+network = #F87060
+volume = #BFC0C0
+
+[bar/bar]
+;monitor = ${env:MONITOR:HDMI-1}
+width = 100%
+height = 30
+
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+border-bottom-size = 13.5
+border-left-size = 13.5
+border-right-size = 13.5
+border-top-size = 0
+
+border-color = #00000000
+
+padding-left = 0
+padding-right = 0.5
+
+bottom = true
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = "Fira Code:style=Retina:size=10;2"
+font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=10;2"
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=10;2"
+font-3 = "Font Awesome 5 Brands:pixelsize=10;2"
+
+modules-left = i3
+;modules-center = date
+modules-right = wlan separator battery separator date separator powermenu
+
+tray-position = right
+tray-padding = 2
+;tray-background = #0063ff
+
+;wm-restack = bspwm
+;wm-restack = i3
+
+;override-redirect = true
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+; Only show workspaces on the same output as the bar
+; pin-workspaces = true
+
+ws-icon-0 = 1:web;
+ws-icon-1 = 2:terminal;
+ws-icon-2 = 3:code;
+ws-icon-3 = 4:chat;
+ws-icon-4 = 5:music;
+ws-icon-default = 
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %icon%
+label-focused-background = ${colors.background-alt}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %icon%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %icon%
+label-visible-background = ${self.label-focused-background}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %icon%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+; Separator in between workspaces
+; label-separator = 
+
+[module/wlan]
+type = internal/network
+interface = wlo1
+interval = 3.0
+
+format-connected = %{A:nm-connection-editor&:} <label-connected>%{A}
+label-connected = %essid%
+format-connected-foreground = ${colors.network}
+
+format-disconnected = %{A:nm-connection-editor&:}<label-disconnected>%{A}
+label-disconnected = Disconnected
+format-disconnected-foreground = ${colors.network}
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = " %a, %d %b"
+date-alt = " %Y-%m-%d"
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format-prefix = 
+format-foreground = ${colors.time}
+
+label = %date% %time%
+
+[module/alsa]
+type = internal/alsa
+
+format-volume = <ramp-volume> <label-volume>
+label-volume = %percentage%
+format-volume-foreground = ${colors.volume}
+
+format-muted-prefix = " "
+format-muted-foreground = ${colors.volume}
+label-muted = sound muted
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC0
+full-at = 99
+
+format-charging = <animation-charging> <label-charging>
+format-charging-foreground = ${colors.battery}
+
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-foreground = ${colors.battery}
+
+format-full-prefix = " "
+format-full-foreground = ${colors.battery}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = ${colors.secondary}
+label-close =  cancel
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = reboot
+menu-0-0-exec = reboot
+menu-0-1 = power off
+menu-0-1-exec = poweroff
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = power off
+menu-2-0-exec = sudo poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = false
+
+[module/decor-glyph]
+type = custom/text
+content-foreground = ${colors.foreground-alt}
+margin = 0
+
+[module/separator]
+inherit = module/decor-glyph
+content = "/"
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+; vim:ft=dosini
