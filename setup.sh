@@ -47,4 +47,12 @@ sudo /opt/texlive-installer/install-tl
 echo "PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH" >> .bashrc
 sudo tlmgr install biblatex-bath
 
-
+# Copy dotfiles
+cp .bashrc ~/.
+cp .bash_profile ~/.
+cp .dir_colors ~/.
+cp .profile ~/.
+cp .vimrc ~/.
+cp .Xresources ~/.
+cp -r .config ~/.
+cp -r .i3 ~/.
